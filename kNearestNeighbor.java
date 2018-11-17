@@ -23,14 +23,19 @@ public class kNearestNeighbor {
 	private void count() {
 		String line;
 		try {
-			while ((line = input.nextLine()) != null) {
-				StringTokenizer st = new StringTokenizer(line);
-				while(st.hasMoreTokens()) {
-					String word;
-					word = st.nextToken();
-					termVector.add(word);
+			for(int index = 0; line != null; index++) {
+				while ((line = input.nextLine()) != null) {
+					StringTokenizer st = new StringTokenizer(line);
+					while(st.hasMoreTokens()) {
+						String word;
+						word = Integer.parseInt(word);
+						myDoc.add(index, word);
+					
+						word = st.nextToken();
+					}
 				}
 			}
+				
 		}
 		catch (NoSuchElementException e) {
 			// no more lines in the file
