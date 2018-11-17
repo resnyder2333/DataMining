@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -27,8 +28,13 @@ public class kNearestNeighbor {
 				while(st.hasMoreTokens()) {
 					String word;
 					word = st.nextToken();
+					termVector.add(word);
 				}
 			}
+		}
+		catch (NoSuchElementException e) {
+			// no more lines in the file
+			// no handler is necessary
 		}
 	}
 	
