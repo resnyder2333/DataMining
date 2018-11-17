@@ -2,9 +2,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 public class kNearestNeighbor {
 	private Scanner input;
+	Vector<Integer> myDoc; 
+	Vector<String> termVector;
 	
 	public kNearestNeighbor(String path) {
 		try {
@@ -15,19 +19,32 @@ public class kNearestNeighbor {
 		}
 	}
 	
+	private void count() {
+		String line;
+		try {
+			while ((line = input.nextLine()) != null) {
+				StringTokenizer st = new StringTokenizer(line);
+				while(st.hasMoreTokens()) {
+					String word;
+					word = st.nextToken();
+				}
+			}
+		}
+	}
+	
 	class trainingData {
-		   Vector<int> vector; // counts of words; index matches 'terms'
+		   Vector<Integer> vector; // counts of words; index matches 'terms'
 		   Boolean isSpam; // flag to indicate known spam vs known NS
 			
 			terms.add(word);
 			fileToVector(File); //or could be a constructor. needs the terms Vector
 
-			double calCosine(Vector<int> testVector);
+			double calCosine(Vector<Integer> testVector);
 	}
 	List< trainingData >  trainingSet;
 	
 	class testData{
-		Vector<int> testVector;
+		Vector<Integer> testVector;
 		Boolean isSpam;
 
 		fileToVector(File);
