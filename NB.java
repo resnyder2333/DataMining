@@ -16,11 +16,12 @@ public class NB {
 	private int numEmail = 0;
 	private int numSpam = 0;
 	
+	//Constructor to run code when called
 	public NB() {
 		NaiveBayes();
 	}
 	
-	
+	//Manages Training, testing and reporting results
 	public void NaiveBayes() {
 		//for each in training set, read and add to hash map
 		File folder = new File("Train");
@@ -61,8 +62,9 @@ public class NB {
 		double accuracy = hits/(double)testSize;
 		System.out.println("Accuracy: "+ (accuracy* 100) + "%");
 	}
+	
 	//method for reading the given file and obtaining a list and a set of the words in that file
-		private void readFile(File readFrom) {
+	private void readFile(File readFrom) {
 			try{
 				//target a new file with the scanner, if there is none by the name given: give up
 				input=new Scanner(readFrom);
@@ -124,7 +126,8 @@ public class NB {
 				
 			input.close();
 		}
-		//reads test file, and attempts to classify using Naive Bayes
+
+	//reads test file, and attempts to classify using Naive Bayes
 	private int ClassifyNB(File testRecord) {
 		//set of what words are in this record
 		HashSet<String> record = new HashSet<String>();
@@ -176,10 +179,11 @@ public class NB {
 		return 0;
 	}
 	
+	//Does actual classification of individual records
 	private int ClassifyRecordNB(HashSet<String> record){
 		//initialize array and scores for testing
 		Object[]  arrayOfWords = record.toArray();
-		double emailScore = 1, spamScore = 1;
+		double emailScore = 1, spamScore = 1, vocabulary = emailCounts.size()+spamCounts.size();
 		for(int i=0; i<arrayOfWords.length;i++) {
 			//Check for missing words, set to zero rather than null
 			int emailMatches;
@@ -196,9 +200,10 @@ public class NB {
 			else {
 				spamMatches = spamCounts.get(arrayOfWords[i]);
 			}
-			//get likelyhood of class based on each word
-			emailScore *= (emailMatches+1)/(double)(2*numEmail);
-			spamScore *= (spamMatches+1)/(double)(2*numSpam);
+			//get likelihood of class based on each word
+			//Uses log method to prevent underflow of double changing results
+			emailScore += Math.log((emailMatches+1)/(double)(numEmail+vocabulary));
+			spamScore += Math.log((spamMatches+1)/(double)(numSpam+vocabulary));
 		}
 		if(emailScore > spamScore) {
 			//return email
