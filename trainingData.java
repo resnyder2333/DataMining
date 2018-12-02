@@ -51,7 +51,7 @@ public class trainingData {
     					countVector.add(0);
                    	int count = countVector.get(index);
                    	count++;
-                    countVector.set(count);
+                    countVector.set(count, index);
                  }
 
                    // we have the currentToken from the file
