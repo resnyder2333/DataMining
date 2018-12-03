@@ -82,10 +82,4 @@ public class trainingData {
 } // end fileToVector
 } // end class trainingData
 
-// trainingSet:
-// * key terms Vector
-// container aka vectorList of [file-to-counts-vector, and isSpam flag] ->
-// fileData objects
-List<trainingData> vectorList = new List<trainingData>;
-	// for each file in training:
-trainingData fileData = new trainingData(file, termVector);vectorList.add(fileData);
+

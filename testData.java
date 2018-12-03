@@ -65,14 +65,9 @@ try{
 		// no more lines in the file
 		// no handler is necessary
 
-	}input.close();
-	// attempt to classify, and if it matches the real class...
-	if(testData(record) == isSpam) {
-	//add to correct count
-	return 1;
-}
-//otherwise return 0 to not add to the number of correct guesses
-return 0;
+	}
+	input.close();
+	
 } // end fileToVector
 	} // end class trainingData
 
@@ -82,7 +77,8 @@ return 0;
 	// fileData objects
 List<trainingData> vectorList = new List<trainingData>;
 // for each file in training:
-	trainingData fileData = new trainingData(file, termVector);vectorList.add(fileData);
+	trainingData fileData = new trainingData(file, termVector);
+	vectorList.add(fileData);
 
 	// read files for test data
 	testData testFile = new testData(file, termVector);
