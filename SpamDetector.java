@@ -9,7 +9,8 @@ import java.util.StringTokenizer;
 public class SpamDetector {
 	public static void main(String[] args) {
 		//KNN
-		//KNN neighbor = new KNN();
+		kNearestNeighbors neighbor = new kNearestNeighbors();
+		neighbor.kNN();
 		//NB
 		 NB bayes = new NB();
 	}

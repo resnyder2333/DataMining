@@ -26,12 +26,13 @@ public class NB {
 		//for each in training set, read and add to hash map
 		File folder = new File("Train");
 		File[] listOfFiles = folder.listFiles();
+		
 		//Begin Learning Phase
 		for (File file : listOfFiles) {
 		    if (file.isFile()) {
 				//read file and train network
-		    	//System.out.println("-----" + file.getName() + "------");
 				readFile(file);
+				
 				//count number of each class
 				if(file.getName().contains("spm")) {
 					numSpam++;
@@ -49,9 +50,7 @@ public class NB {
 		//for each file in the test set
 		for (File file : listOfFiles) {
 		    if (file.isFile()) {
-				//read file
-		    	//System.out.println("-----" + file.getName() + "------");
-		    	//and test the network
+				//read file and test the network
 				hits += ClassifyNB(file);
 				//count how many files were tested
 				testSize++;
@@ -60,7 +59,7 @@ public class NB {
 
 		//calculate Accuracy
 		double accuracy = hits/(double)testSize;
-		System.out.println("Accuracy: "+ (accuracy* 100) + "%");
+		System.out.println("Naive Bayes Accuracy: "+ (accuracy* 100) + "%");
 	}
 	
 	//method for reading the given file and obtaining a list and a set of the words in that file
@@ -74,6 +73,7 @@ public class NB {
 				}
 				try{
 				String line;
+				
 				//as long as there is still a line to read in the file
 				while((line=input.nextLine())!=null){
 					//tokenize the line, and process each token to be compared later
@@ -88,6 +88,8 @@ public class NB {
 						}
 						//convert all the characters to lowercase, to count words, regardless of Caps
 						currentToken = currentToken.toLowerCase();
+						
+						//count word in appropriate class
 						if(readFrom.getName().contains("spm")) {
 							//count towards spam
 							//Add the fully processed word to the list and the set 
@@ -184,6 +186,7 @@ public class NB {
 		//initialize array and scores for testing
 		Object[]  arrayOfWords = record.toArray();
 		double emailScore = 1, spamScore = 1, vocabulary = emailCounts.size()+spamCounts.size();
+		
 		for(int i=0; i<arrayOfWords.length;i++) {
 			//Check for missing words, set to zero rather than null
 			int emailMatches;
@@ -200,6 +203,7 @@ public class NB {
 			else {
 				spamMatches = spamCounts.get(arrayOfWords[i]);
 			}
+			
 			//get likelihood of class based on each word
 			//Uses log method to prevent underflow of double changing results
 			emailScore += Math.log((emailMatches+1)/(double)(numEmail+vocabulary));
